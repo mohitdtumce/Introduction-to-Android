@@ -4,7 +4,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
+
 import java.text.NumberFormat;
+
 /**
  * This app displays an order form to order coffee.
  */
@@ -19,10 +21,11 @@ public class MainActivity extends AppCompatActivity {
     /**
      * This method is called when the order button is clicked.
      */
+    int numberOfCoffees = 0;
+
     public void submitOrder(View view) {
-        int numberOfCoffees = 3;
         display(numberOfCoffees);
-        displayPrice(numberOfCoffees*5);
+        displayPrice(numberOfCoffees * 5);
     }
 
     /**
@@ -36,8 +39,22 @@ public class MainActivity extends AppCompatActivity {
     /**
      * This method displays the given price on the screen.
      */
-    private void displayPrice(int number){
+    private void displayPrice(int number) {
         TextView priceTextView = (TextView) findViewById(R.id.price_text_view);
         priceTextView.setText(NumberFormat.getCurrencyInstance().format(number));
+    }
+
+    public void decrementCoffee(View view) {
+        if (numberOfCoffees > 0) {
+            numberOfCoffees--;
+        }
+        display(numberOfCoffees);
+        displayPrice(numberOfCoffees * 5);
+    }
+
+    public void incrementCoffee(View view) {
+        numberOfCoffees++;
+        display(numberOfCoffees);
+        displayPrice(numberOfCoffees * 5);
     }
 }
