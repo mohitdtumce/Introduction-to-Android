@@ -5,15 +5,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 
-/**
- * This app displays an order form to order coffee.
- */
 public class MainActivity extends AppCompatActivity {
 
     /**
      * This method is called when the order button is clicked.
      */
-    int numberOfCoffees = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,45 +17,37 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
-    public void submitOrder(View view) {
-        display(numberOfCoffees);
-        displayPrice(numberOfCoffees * 5);
-    }
+    int quantity = 0;
 
-    /**
-     * This method displays the given text on the screen.
-     */
-    private void displayMessage(String str) {
-        TextView priceTextView = (TextView) findViewById(R.id.price_text_view);
-        priceTextView.setText(str);
-    }
-
-    /**
-     * This method displays the given quantity value on the screen.
-     */
-    private void display(int number) {
-        TextView quantityTextView = (TextView) findViewById(R.id.quantity_text_view);
-        quantityTextView.setText("" + number);
-    }
-
-    /**
-     * This method displays the given price on the screen.
-     */
-    private void displayPrice(int number) {
-        TextView priceTextView = (TextView) findViewById(R.id.price_text_view);
-        String priceMessage = "Total Amount Due: " + "$" + number + "\nThanks for the order!!";
-        priceTextView.setText(priceMessage);
+    private void displayQuantity() {
+        TextView t = (TextView) findViewById(R.id.quantity_text_view);
+        t.setText(String.valueOf(quantity));
     }
 
     public void decrementCoffee(View view) {
-        if (numberOfCoffees > 0) {
-            numberOfCoffees--;
+        if (quantity > 0) {
+            quantity--;
         }
-        display(numberOfCoffees);
+        displayQuantity();
     }
 
     public void incrementCoffee(View view) {
-        numberOfCoffees++;
-        display(numberOfCoffees);
+        quantity++;
+        displayQuantity();
+    }
+
+    private int calculatePrice() {
+        return quantity * 5;
+    }
+
+    private void createOrderSummary(int total) {
+        String orderSummary = "Name: Kaptain Kunal\nQuantity: " + quantity + "\nTotal: $" + total + "\nThank you!!";
+        TextView orderSummaryTextView = (TextView) findViewById(R.id.order_summary_text_view);
+        orderSummaryTextView.setText(orderSummary);
+    }
+
+    public void submitOrder(View view) {
+        int price = calculatePrice();
+        createOrderSummary(price);
     }
 }
