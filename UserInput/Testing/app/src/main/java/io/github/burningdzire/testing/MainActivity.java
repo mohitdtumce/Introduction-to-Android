@@ -3,6 +3,8 @@ package io.github.burningdzire.testing;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
@@ -13,24 +15,22 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
-    int scoreTeamA = 0;
-    public void displayScoreTeamA() {
-        TextView t = (TextView) findViewById(R.id.score_team_a);
-        t.setText(String.valueOf(scoreTeamA));
-    }
-
-    public void addThreePointsA(View view) {
-        scoreTeamA += 3;
-        displayScoreTeamA();
-    }
-
-    public void addTwoPointsA(View view) {
-        scoreTeamA += 2;
-        displayScoreTeamA();
-    }
-
-    public void addOnePointsA(View view) {
-        scoreTeamA += 1;
-        displayScoreTeamA();
+    /**
+     * Called when the cookie should be eaten.
+     */
+    boolean flag = true;
+    public void eatCookie(View view) {
+        TextView textview = (TextView) findViewById(R.id.status_text_view);
+        ImageView imageview = (ImageView) findViewById(R.id.android_cookie_image_view);
+        if (flag) {
+            textview.setText("I'm so full");
+            imageview.setImageResource(R.drawable.after_cookie);
+        }
+        else
+        {
+            textview.setText("I'm so hungry");
+            imageview.setImageResource(R.drawable.before_cookie);
+        }
+        flag = !flag;
     }
 }
