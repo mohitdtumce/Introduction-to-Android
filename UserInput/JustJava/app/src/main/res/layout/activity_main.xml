@@ -18,6 +18,13 @@
             android:layout_marginBottom="16dp"
             android:hint="Name" />
 
+        <EditText
+            android:id="@+id/customer_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:hint="Email" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
