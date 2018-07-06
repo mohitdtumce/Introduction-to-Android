@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/customerName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/hintCustomerName"
+            android:inputType="text" />
+
+        <EditText
+            android:id="@+id/customerEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/hintCustomerEmail"
+            android:inputType="textEmailAddress" />
+
+        <TextView
+            style="@style/HeaderTextStyle"
+            android:text="@string/toppingsHeader" />
+
+        <CheckBox
+            android:id="@+id/whippedCreamCheckBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:text="@string/toppingWhippedCream" />
+
+        <CheckBox
+            android:id="@+id/chocolateCheckBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:text="@string/toppingChocolate" />
+
+        <TextView
+            style="@style/HeaderTextStyle"
+            android:text="@string/quantity" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                style="@style/QtyButtonStyle"
+                android:onClick="decrement"
+                android:text="@string/decrement" />
+
+            <TextView
+                android:id="@+id/quantityCoffee"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:text="@string/initialQuantity"
+                android:textColor="@android:color/black"
+                android:textSize="16sp" />
+
+            <Button
+                style="@style/QtyButtonStyle"
+                android:onClick="increment"
+                android:text="@string/increment" />
+        </LinearLayout>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/submit"
+            android:onClick="submitOrder"/>
+
+    </LinearLayout>
+
+</ScrollView>
