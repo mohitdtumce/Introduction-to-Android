@@ -1,7 +1,10 @@
 <resources>
-    <!-- Title for the application. [CHAR LIMIT=12] -->
+   <!-- Activity Names -->
     <string name="app_name">Miwok</string>
-
+    <string name="NumberActivity">Numbers</string>
+    <string name="FamilyActivity">Family Members</string>
+    <string name="ColorActivity">Colors</string>
+    <string name="PhrasesActivity">Phrases</string>
     <!-- Category name for phrases [CHAR LIMIT=20] -->
     <string name="category_phrases">Phrases</string>
 
