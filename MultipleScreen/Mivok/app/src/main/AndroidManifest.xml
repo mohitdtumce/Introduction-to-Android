@@ -20,24 +20,20 @@
         <activity
             android:name=".NumberActivity"
             android:label="@string/NumberActivity"
-            android:parentActivityName=".MainActivity">
-        </activity>
+            android:parentActivityName=".MainActivity"></activity>
 
         <activity
             android:name=".FamilyActivity"
             android:label="@string/FamilyActivity"
-            android:parentActivityName=".MainActivity">
-        </activity>
+            android:parentActivityName=".MainActivity"></activity>
         <activity
             android:name=".ColorActivity"
             android:label="@string/ColorActivity"
-            android:parentActivityName=".MainActivity">
-        </activity>
+            android:parentActivityName=".MainActivity"></activity>
         <activity
             android:name=".PhrasesActivity"
             android:label="@string/PhrasesActivity"
-            android:parentActivityName=".MainActivity">
-        </activity>
+            android:parentActivityName=".MainActivity"></activity>
     </application>
 
 </manifest>
