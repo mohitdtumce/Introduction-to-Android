@@ -6,8 +6,5 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:paddingBottom="@dimen/activityVerticalMargin"
-    android:paddingLeft="@dimen/activityHorizontalMargin"
-    android:paddingRight="@dimen/activityHorizontalMargin"
-    android:paddingTop="@dimen/activityVerticalMargin"
+    android:background="@color/numberTheme"
     tools:context=".Number"></ListView>
