@@ -5,8 +5,7 @@ public class Event {
     public final String perceivedStrength;
     public final String numberOfPeople;
 
-    public Event(String eventTitle, String eventPerceivedStrength, String eventNumberOfPeople)
-    {
+    public Event(String eventTitle, String eventPerceivedStrength, String eventNumberOfPeople) {
         this.title = eventTitle;
         this.perceivedStrength = eventPerceivedStrength;
         this.numberOfPeople = eventNumberOfPeople;

@@ -12,24 +12,42 @@
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:hint="@string/title"/>
+        android:layout_gravity="center_horizontal"
+        android:paddingBottom="16dp"
+        android:paddingTop="16dp"
+        android:textAppearance="?android:textAppearanceLarge"
+        tools:hint="@string/title" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:hint="@string/perceived_strength"/>
+        android:layout_gravity="center_horizontal"
+        android:paddingBottom="16dp"
+        android:paddingTop="16dp"
+        android:text="@string/perceived_strength"
+        android:textAllCaps="true"
+        android:textAppearance="?android:textAppearanceMedium"
+        tools:hint="@string/perceived_strength" />
 
     <TextView
         android:id="@+id/perceived_strength"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/magnitude_circle"
+        android:gravity="center"
         android:text="@string/perceived_magnitude"
-        android:background="@drawable/magnitude_circle"/>
+        android:textColor="@android:color/white"
+        android:textSize="100sp" />
 
     <TextView
         android:id="@+id/no_of_people"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:hint="@string/no_of_people"/>
+        android:layout_gravity="center_horizontal"
+        android:paddingTop="16dp"
+        android:textAllCaps="true"
+        android:textAppearance="?android:textAppearanceMedium"
+        tools:hint="@string/no_of_people" />
 
 </LinearLayout>
