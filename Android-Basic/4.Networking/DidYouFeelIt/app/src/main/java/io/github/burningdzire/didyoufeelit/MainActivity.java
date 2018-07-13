@@ -22,8 +22,7 @@ import java.nio.charset.Charset;
 
 public class MainActivity extends AppCompatActivity {
 
-    private final String LOG_TAG = MainActivity.class.getSimpleName();
-    private static final String USGS_REQUEST_URL = "https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2016-01-01&endtime=2016-05-02&minfelt=50&minmagnitude=5";
+    private static final String USGS_REQUEST_URL = "https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2018-01-01&endtime=2018-05-02&minfelt=50&minmagnitude=5";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         EarthquakeAsyncTask task = new EarthquakeAsyncTask();
-        task.execute();
+        task.execute(USGS_REQUEST_URL);
     }
 
     private void updateUI(Event earthquake) {
@@ -45,13 +44,15 @@ public class MainActivity extends AppCompatActivity {
         numberOfPeopleView.setText(earthquake.numberOfPeople);
     }
 
-    private class EarthquakeAsyncTask extends AsyncTask<URL, Void, Event> {
+    private class EarthquakeAsyncTask extends AsyncTask<String, Void, Event> {
 
         @Override
-        protected Event doInBackground(URL... requestUrl) {
-            URL url = createUrl(USGS_REQUEST_URL);
-            String jsonResponse = makeHttpRequest(url);
-            return extractFeaturesFromJson(jsonResponse);
+        protected Event doInBackground(String... urls) {
+
+            if (urls.length < 1 || urls[0] == null)
+                return null;
+
+            return Utils.fetchEarthquakeData(urls[0]);
         }
 
         protected void onPostExecute(Event earthquake) {
@@ -60,91 +61,6 @@ public class MainActivity extends AppCompatActivity {
             updateUI(earthquake);
         }
 
-        private URL createUrl(String requestUrl) {
-            URL url = null;
-            try {
-                url = new URL(requestUrl);
-            } catch (MalformedURLException e) {
-                Log.e(LOG_TAG, "Cannot create URL", e);
-            }
-            return url;
-        }
 
-        private String makeHttpRequest(URL url) {
-            String jsonResponse = "";
-            if (url == null) {
-                return null;
-            }
-
-            HttpURLConnection urlConnection = null;
-            InputStream inputStream = null;
-            try {
-                urlConnection = (HttpURLConnection) url.openConnection();
-                urlConnection.setRequestMethod("GET");
-                urlConnection.setReadTimeout(10000/*In milliseconds*/);
-                urlConnection.setConnectTimeout(15000/*In milliseconds*/);
-                urlConnection.connect();
-
-                if (urlConnection.getResponseCode() == 200) {
-                    inputStream = urlConnection.getInputStream();
-                    jsonResponse = readFromStream(inputStream);
-                } else {
-                    Log.e(LOG_TAG, "Error response code: " + urlConnection.getResponseCode());
-                }
-            } catch (IOException e) {
-                Log.e(LOG_TAG, "Problem retrieving JSON results", e);
-            } finally {
-                if (urlConnection != null) {
-                    urlConnection.disconnect();
-                }
-                try {
-                    if (inputStream != null) {
-                        inputStream.close();
-                    }
-                } catch (IOException e) {
-                    Log.e(LOG_TAG, "Cannot close input stream");
-                }
-            }
-            return jsonResponse;
-        }
-
-        private String readFromStream(InputStream inputStream) {
-            StringBuilder output = new StringBuilder();
-            if (inputStream != null) {
-                InputStreamReader inputStreamReader = new InputStreamReader(inputStream, Charset.forName("UTF-8"));
-                BufferedReader reader = new BufferedReader(inputStreamReader);
-                try {
-                    String line = reader.readLine();
-                    while (line != null) {
-                        output.append(line);
-                        line = reader.readLine();
-                    }
-                } catch (IOException e) {
-                    Log.e(LOG_TAG, "Cannot read lines", e);
-                }
-            }
-            return output.toString();
-        }
-
-        private Event extractFeaturesFromJson(String earthquakeJson) {
-            if (TextUtils.isEmpty(earthquakeJson))
-                return null;
-
-            try {
-                JSONObject root = new JSONObject(earthquakeJson);
-                JSONArray featureArray = root.getJSONArray("features");
-                if (featureArray.length() > 0) {
-                    JSONObject firstFeature = featureArray.getJSONObject(0);
-                    JSONObject properties = firstFeature.getJSONObject("properties");
-                    String title = properties.getString("title");
-                    String numberOfPeople = properties.getString("felt");
-                    String perveivedStrength = properties.getString("cdi");
-                    return new Event(title, perveivedStrength, numberOfPeople);
-                }
-            } catch (JSONException e) {
-                Log.e(LOG_TAG, "Cannot extract features", e);
-            }
-            return null;
-        }
     }
 }
